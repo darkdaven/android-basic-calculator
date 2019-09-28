@@ -1,5 +1,8 @@
 package com.itla.basiccalculator;
 
+import android.text.Spannable;
+
+import com.itla.basiccalculator.operation.FactorialOperator;
 import com.itla.basiccalculator.operation.MathOperation;
 import com.itla.basiccalculator.operation.OperationFactory;
 import com.itla.basiccalculator.operation.Operator;
@@ -45,5 +48,10 @@ public class Calculator {
     public void clear() {
         this.holdValue = Double.NaN;
         this.operator = null;
+    }
+
+    public void setOperator(final String operatorSymbol) {
+        final Operator operator = OperatorFactory.getOperatorBySymbol(operatorSymbol);
+        this.operator = operator;
     }
 }

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnEqual;
 
     private Boolean firstInput = true;
+    private Boolean lastWasOperator = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     firstInput = true;
                 }
 
+                lastWasOperator = false;
                 StringBuilder sb = new StringBuilder();
                 sb.append(txtResult.getText());
                 String digit = ((Button) v).getText().toString();
@@ -145,9 +147,14 @@ public class MainActivity extends AppCompatActivity {
                     return;
 
                 String symbol = ((Button) v).getText().toString();
-                calculator.makeCalculation(symbol, Double.parseDouble(txtResult.getText().toString()));
+                if(!lastWasOperator)
+                    calculator.makeCalculation(symbol, Double.parseDouble(txtResult.getText().toString()));
+                else
+                    calculator.setOperator(symbol);
+
                 txtResult.setText(formatCalcResult(calculator.getValue()));
                 firstInput = false;
+                lastWasOperator = true;
             }
         };
 
